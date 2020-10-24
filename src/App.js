@@ -2,28 +2,18 @@ import React, {Component} from 'react';
 
 import Main from './components/MainComponent';
 import './App.css';
-
-
-// function App() {
-//   return (
-//     <div>
-//       <Navbar dark color="primary">
-//         <div className="container">
-//           <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-//         </div>
-//       </Navbar>
-//       <Menu />
-//     </div>
-//   );
-// }
+import {BrowserRouter} from 'react-router-dom';
 
 class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Main />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Main />
+        </div>
+      </BrowserRouter>
+     
     );
   }
 }
