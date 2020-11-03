@@ -53,8 +53,8 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-    console.log("Current State is: " + JSON.stringify(values))
-    alert("Current State is: " + JSON.stringify(values))
+    this.toggleModal();
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comments);
     
 }
 
@@ -119,11 +119,11 @@ class CommentForm extends Component {
 
                   <Row className="form-group">
                     <Col md={12}>
-                      <Label htmlFor="comment">Comment</Label>
+                      <Label htmlFor="comments">Comment</Label>
                     </Col>
                     
                     <Col md={12}>
-                      <Control.textarea model=".comment" name="comment" rows="6"  className="form-control">
+                      <Control.textarea model=".comments" name="comments" rows="6"  className="form-control">
                           
                         </Control.textarea>
                     </Col>
@@ -148,7 +148,7 @@ class CommentForm extends Component {
 }
 
 
-function RenderComments({comments}) {
+function RenderComments({comments, addComment, dishId}) {
   if (comments == null || comments.length === 0) {
     return (
       <div></div>
@@ -157,7 +157,7 @@ function RenderComments({comments}) {
 
   const renderedComments = comments.map((comment) => {
     return (
-      <li>
+      <li key={comment.id}>
         <p>{comment.comment}</p>
         <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
       </li>
@@ -170,7 +170,7 @@ function RenderComments({comments}) {
       <ul className="list-unstyled">
         { renderedComments }
       </ul>
-      <CommentForm/>
+      <CommentForm dishId={dishId} addComment={addComment}/>
     </div>
   );
 }
@@ -199,7 +199,9 @@ const Dishdetail = (props) => {
               <RenderDish dish={props.dish} />
             </div>
             <div className="col-12 col-md-5 m-1">
-              <RenderComments comments={props.comments} />
+              <RenderComments comments={props.comments}
+                addComment={props.addComment}
+                dishId = {props.dish.id} />
             </div>
           </div>
         </div>
