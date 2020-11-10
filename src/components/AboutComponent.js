@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
+import {Fade, Stagger} from "react-animation-components";
 
 
 function RenderLeader({leader, isLoading, errMess}) {
@@ -21,18 +22,25 @@ function RenderLeader({leader, isLoading, errMess}) {
 
     else {
         return (
-            <Media className="mt-1" tag="li">
-                <Media left className="mr-3" href="#">
-                    <Media object src={baseUrl + leader.image} alt={leader.name} />
-                </Media>
-                <Media body>
-                    <Media heading>
-                        <h3>{leader.name}</h3>  
-                    </Media>
-                        <p>{leader.designation}</p>
-                        <p>{leader.description}</p>
-                </Media>
-            </Media>
+
+                
+                    <Fade in>
+                        <Media className="mt-1" tag="li">
+                            <Media left className="mr-3" href="#">
+                                <Media object src={baseUrl + leader.image} alt={leader.name} />
+                            </Media>
+                            <Media body>
+                                <Media heading>
+                                    <h3>{leader.name}</h3>  
+                                </Media>
+                                    <p>{leader.designation}</p>
+                                    <p>{leader.description}</p>
+                            </Media>
+                        </Media>
+                    </Fade>
+                    
+                
+    
         );
     }
 
@@ -107,7 +115,10 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <Stagger in>
+                            {leaders}
+                        </Stagger>
+                       
                     </Media>
                 </div>
             </div>

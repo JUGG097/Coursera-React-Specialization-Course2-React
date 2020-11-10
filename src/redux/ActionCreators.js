@@ -42,6 +42,44 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
 };
 
+export const postFeedback = (firstname, lastname, email, telnum, agree, contactType, message) => (dispatch) => {
+
+    const newFeedback = {
+        firstname: firstname,
+        lastname: lastname,
+        telnum: telnum,
+        email: email,
+        agree: agree,
+        contactType: contactType,
+        message: message
+    };
+    newFeedback.date = new Date().toISOString();
+    
+    return fetch(baseUrl + 'feedback', {
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+    .then(response => response.json())
+    .then(response =>  {console.log(response); alert(`Thank you for the Feedback: ${JSON.stringify(response)}`)})
+    .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+};
+
 /////////// DISHES /////////////////
 export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
@@ -117,7 +155,7 @@ export const addComments = (comments) => ({
 //////////////// PROMOS //////////
 export const fetchPromos = () => (dispatch) => {
     
-    dispatch(promosLoading());
+    dispatch(promosLoading(true));
 
     return fetch(baseUrl + 'promotions')
     .then(response => {
@@ -156,7 +194,7 @@ export const addPromos = (promos) => ({
 //////////////// leaders //////////
 export const fetchLeaders = () => (dispatch) => {
     
-    dispatch(leadersLoading());
+    dispatch(leadersLoading(true));
 
     return fetch(baseUrl + 'leaders')
     .then(response => {
