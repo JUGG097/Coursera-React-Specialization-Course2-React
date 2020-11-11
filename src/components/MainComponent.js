@@ -76,7 +76,7 @@ class Main extends Component {
           <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
             <Switch>
               <Route path="/home" component={HomePage} />
-              { /* If "exact" is not set, "/menu/xy" will match */ }
+              
               <Route exact path="/menu" component={ () => <Menu dishes={this.props.dishes} /> } />
               <Route path="/menu/:dishId" component={ DishWithId } />
               <Route exact path="/contactus" component={ () => <Contact postFeedback={this.props.postFeedback} resetFeedbackForm={this.props.resetFeedbackForm} />} />

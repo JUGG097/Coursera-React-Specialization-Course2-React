@@ -7,13 +7,7 @@ import {Loading} from "./LoadingComponent";
 import { baseUrl } from '../shared/baseUrl';
 import {FadeTransform, Fade, Stagger} from "react-animation-components";
 
-    // componentDidMount() {
-    //     console.log("Dishdetail Component componentDidMount invoked")
-    // }
-
-    // componentDidUpdate() {
-    //     console.log("Dishdetail Component componentDidUpdate invoked")
-    // }
+   
 
 function RenderDish({dish}) {
     return (
